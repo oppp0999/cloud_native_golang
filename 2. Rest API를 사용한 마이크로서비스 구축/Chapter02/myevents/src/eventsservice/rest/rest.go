@@ -12,8 +12,8 @@ func ServeAPI(endpoint string, databasehandler persistence.DatabaseHandler) erro
 	handler := NewEventHandler(databasehandler)
 	r := mux.NewRouter()
 	eventsrouter := r.PathPrefix("/events").Subrouter()
-	eventsrouter.Methods("GET").Path("/{SearchCriteria}/{search}").HandlerFunc(handler.FindEventHandler)
-	eventsrouter.Methods("GET").Path("").HandlerFunc(handler.AllEventHandler)
-	eventsrouter.Methods("POST").Path("").HandlerFunc(handler.NewEventHandler)
+	eventsrouter.Methods("GET").Path("/{SearchCriteria}/{search}").HandlerFunc(handler.FindEventHandler) //업무 1
+	eventsrouter.Methods("GET").Path("").HandlerFunc(handler.AllEventHandler) //업무 2
+	eventsrouter.Methods("POST").Path("").HandlerFunc(handler.NewEventHandler) //업무 3
 	return http.ListenAndServe(endpoint, r)
 }

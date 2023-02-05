@@ -1,0 +1,56 @@
+import github.com/gorilla/mux -> 고릴라 mux 패키지를 사용하여 라우터 생성 
+
+특징
+1. 상대 url들이 모두 공통의 속성을 공유 -> /events (고릴라 웹 툴킷에서는 /events 에 대해 하위 라우터를 생성할 수 있다.
+
+2. HandlerFunc() 메서드는 잡아서 들어오는 HTTP 요청을 하나의 동작과 어떻게 연결시킬지에 대한 것
+핸들러에게 요청되는 함수는 
+FindEventHandler
+AllEventHandler
+NewEventHandler 세가지 이들 모두 func(http.responsewriter, *http.request) 를 지원한다.
+이 함수들을 전부 관리하고자 만든 것이 go 구조체 객체인 handler
+
+
+
+
+
+
+----- serveAPI -----
+-----------------------------------------------------------------------------------------------------------
+13 -> 이것으로 라우터를 정의하고 이를 실행시킬 동작들과 연결시키는 데 도움을 주는 r이라는 라우터 객체
+
+14 -> /event로 시작되는 하위 라우터를 생성하기 위한 객채 생성
+/events로 시작하는 어떤 url 경로도 잡을 수 있도록 사용되는 pathprefix
+새로운 라우터 객체를 생성하는 subrouter
+
+15 -> 업무 = 다음 항목들을 통한 이벤트 검색
+id : 상대 url /events/id/3434, 메서드는 GET이고 HTTP 바디 부분에 데이터 없음
+name : 상대 url /events/name/jazz_concert, 메서드는 GET, HTTP바디 부분 데이터 없음
+
+16 -> 업무 = 동시에 모든 이벤트를 조회, 상대 url은 /events, 메소드 GET, HTTP 바디 부분 데이터는 없음
+
+17 -> 업무 = 새로운 이벤트 생성, 상대 url /events, 메소드 POST이고 HTTP 바디 부분에 포함되는 데이터는 추가하고자 하는 새로운 이벤트 JSON 표현이여야한다.
+
+18 -> 라우터, 경로 핸들러 정의 후에 웹 서버에 들어오는 HTTP 요청들을 리슨하는 로컬 TCP 주소를 지정
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+각 eventserviceHandler 타입이 업무 1,2,3 에 대해 HTTP 핸들러들을 지원하며면 다음 과 같은 정의가 필요
+
+기준. type eventServiceHandler struct{}
+
+1. func(eh *eventServiceHandler) findEventHandler(w http.ResponseWriter, r *http.Request){}
+
+2. func(eh *eventServiceHandler) allEventHandler(w http.ResponseWriter, r *http.Request){}
+
+3. func(eh *eventServiceHandler) newEventHandler(w http.ResponseWriter, r *http.Request){}
+
+필드가 없는 구조체 기준을 생성하여 각 메서드에 붙였다. 왜냐하면 핸들러 메서드들 각각은 고릴라 mux 패키지의 HandlerFunc메서드에 인수가 돼야 시그니처를 지원한다.
+
+그 후 다음 각각의 업무를 수행하고자 지속적 계층이 필요하다(데이터 저장소)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+업무 1. 해당 코드의 /{SearchCriteria}/{search} 경로는 두가지 (/id/2323, /name/opera aida) 경로는 서로 동일
+고릴라 패키지에서 url 경로 변수에 대한 강력한 지원을 제공
+
+
+
+
