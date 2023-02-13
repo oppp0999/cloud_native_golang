@@ -53,7 +53,7 @@ func (eh *eventServiceHandler) FindEventHandler(w http.ResponseWriter, r *http.R
 			event, err = eh.dbhandler.FindEvent(id)
 		}
 	}
-	if err != nil {
+	if err != nil { //404 에러 헤더 작성
 		fmt.Fprintf(w, `{"error": "%s"}`, err)
 		return
 	}

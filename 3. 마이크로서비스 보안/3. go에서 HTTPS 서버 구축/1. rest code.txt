@@ -1,0 +1,7 @@
+---ch2 rest.go---
+18. -> 표준 라이브러리의 HTTP Go 패키지에 속한 ListenAndServe() -> 첫번째 인수 endpoint는 웹서버가 요청대기 예를들어 로컬포트 8181에서 요청 대기를 원하면 엔드포인트는 :8181이나 Localhost:8181이 된다.
+두번째 인수 r은 HTTP라우트와 핸들러를 기술하는 객체이다. 객체는 고릴라mux패키지에 의해 생성됨(13 code)
+-----------------
+
+웹서버를 HTTP에서 HTTPS로 전환시키려면 하나의 단순한 변경을 수행
+http.ListenAndServe(endpoint, r) -> 
