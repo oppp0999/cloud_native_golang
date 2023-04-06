@@ -1,0 +1,21 @@
+RabbitMQ 브로서 시작
+
+1. 상단에 도커 표시 확인
+
+2. docker run --detach --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+
+$ docker run --detach \
+	--name rabbitmq \	-> rabbitmq로 붙여진 새로운 컨테이너 생성
+	-p 5672:5672 \		-> 플래그 tcp 포트를 localhost에 매핑
+	-p 15672:15672 \	-> 관리용 사용자 인터페이스를 위해 동일한 지시
+	rabbitmq:3-management 	-> 이미지
+
+
+컨테이너 시작 후에 amqp://localhost:5672
+localhost:15672 -> guest guest로 접근가능 -> 비밀번호 변경 해야하지만 개발 목적이기에 그냥 씀
+
+
+----
+GO RabbitMQ 연결
+
+$ go get -u github.com/streadway/amqp

@@ -4,9 +4,9 @@ import (
 	"flag"
 	"log"
 
-	"github.com/PacktPublishing/Cloud-Native-programming-with-Golang/chapter03/myevents/src/eventsservice/rest"
-	"github.com/PacktPublishing/Cloud-Native-programming-with-Golang/chapter03/myevents/src/lib/configuration"
-	"github.com/PacktPublishing/Cloud-Native-programming-with-Golang/chapter03/myevents/src/lib/persistence/dblayer"
+	"/Users/kimheejae/Desktop/project/cloud_native_golang/3. 마이크로서비스 보안/3. go에서 HTTPS 서버 구축/Chapter03/myevents/src/eventsservice/rest"
+	"/Users/kimheejae/Desktop/project/cloud_native_golang/3. 마이크로서비스 보안/3. go에서 HTTPS 서버 구축/Chapter03/myevents/src/lib/configuration"
+	"/Users/kimheejae/Desktop/project/cloud_native_golang/3. 마이크로서비스 보안/3. go에서 HTTPS 서버 구축/Chapter03/myevents/src/lib/persistence/dblayer"
 )
 
 func main() {
